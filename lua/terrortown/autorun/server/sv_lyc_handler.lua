@@ -75,8 +75,8 @@ end)
 
 hook.Add("TTT2PostPlayerDeath", "OnLycTeamDeath", function(victim, _, attacker)
   for _, ply in ipairs(player.GetAll()) do
-    if ply:GetSubRole() ~= ROLE_LYCANTHROPE  or not ply:Alive() or ply:IsSpec() then continue end
-    if victim:HasTeam(ply:GetTeam()) then
+    if ply:GetSubRole() ~= ROLE_LYCANTHROPE  or not ply:Alive() or ply:IsSpec() or (ply.IsGhost and ply:IsGhost()) then continue end
+    if victim:HasTeam(ply:GetTeam()) and not (victim.IsGhost and victim:IsGhost()) then
       UnleashLycanthrope(ply)
     end
   end
